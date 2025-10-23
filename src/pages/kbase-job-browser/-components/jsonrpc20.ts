@@ -153,7 +153,8 @@ export class JSONRPCClient {
         return data.result[0];
       }
 
-      return data.result;
+      // At this point, we know it's JSONRPC 2.0
+      return (data as JSONRPC20SuccessResponse<T>).result;
     } catch (error) {
       clearTimeout(timeoutId);
       if (error instanceof JSONRPCError) {

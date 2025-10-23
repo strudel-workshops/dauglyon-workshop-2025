@@ -233,14 +233,14 @@ export class KBaseJobsAPIClient {
 
   private serviceWizard: ServiceWizardClient;
 
-  private serviceWizardURL: string;
+  // private serviceWizardURL: string;
 
   private token?: string;
 
   private cachedServiceURL?: string;
 
   constructor(serviceWizardURL: string, token?: string) {
-    this.serviceWizardURL = serviceWizardURL;
+    // this.serviceWizardURL = serviceWizardURL;
     this.token = token;
     this.serviceWizard = new ServiceWizardClient(serviceWizardURL, token);
   }

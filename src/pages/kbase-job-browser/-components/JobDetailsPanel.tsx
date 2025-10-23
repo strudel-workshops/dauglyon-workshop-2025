@@ -26,7 +26,11 @@ interface JobDetailsPanelProps {
   apiClient: KBaseJobsAPIClient | null;
 }
 
-export const JobDetailsPanel: React.FC<JobDetailsPanelProps> = ({ job, onClose, apiClient }) => {
+export const JobDetailsPanel: React.FC<JobDetailsPanelProps> = ({
+  job,
+  onClose,
+  apiClient,
+}) => {
   const [activeTab, setActiveTab] = useState(0);
 
   // Format job details for display
@@ -42,13 +46,22 @@ export const JobDetailsPanel: React.FC<JobDetailsPanelProps> = ({ job, onClose, 
 
   // Add state-specific timestamps
   if ('queue_at' in job.state) {
-    jobDetails.push({ label: 'Queued At', value: formatTimestamp(job.state.queue_at) });
+    jobDetails.push({
+      label: 'Queued At',
+      value: formatTimestamp(job.state.queue_at),
+    });
   }
   if ('run_at' in job.state) {
-    jobDetails.push({ label: 'Run At', value: formatTimestamp(job.state.run_at) });
+    jobDetails.push({
+      label: 'Run At',
+      value: formatTimestamp(job.state.run_at),
+    });
   }
   if ('finish_at' in job.state) {
-    jobDetails.push({ label: 'Finished At', value: formatTimestamp(job.state.finish_at) });
+    jobDetails.push({
+      label: 'Finished At',
+      value: formatTimestamp(job.state.finish_at),
+    });
   }
 
   // App details
@@ -101,7 +114,11 @@ export const JobDetailsPanel: React.FC<JobDetailsPanelProps> = ({ job, onClose, 
     <Paper sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
       {/* Header */}
       <Box sx={{ padding: 2, borderBottom: 1, borderColor: 'divider' }}>
-        <Stack direction="row" justifyContent="space-between" alignItems="center">
+        <Stack
+          direction="row"
+          justifyContent="space-between"
+          alignItems="center"
+        >
           <Typography variant="h6">Job Details</Typography>
           <IconButton size="small" onClick={onClose}>
             <CloseIcon />
@@ -120,7 +137,10 @@ export const JobDetailsPanel: React.FC<JobDetailsPanelProps> = ({ job, onClose, 
       </Box>
 
       {/* Tabs */}
-      <Tabs value={activeTab} onChange={(_, newValue) => setActiveTab(newValue)}>
+      <Tabs
+        value={activeTab}
+        onChange={(_, newValue) => setActiveTab(newValue)}
+      >
         <Tab label="Details" />
         <Tab label="App" disabled={!job.app} />
         <Tab label="Context" />
@@ -129,17 +149,19 @@ export const JobDetailsPanel: React.FC<JobDetailsPanelProps> = ({ job, onClose, 
 
       {/* Tab Content */}
       <Box sx={{ padding: 2, overflow: 'auto', flex: 1 }}>
-        {activeTab === 0 && <LabelValueTable data={jobDetails} />}
+        {activeTab === 0 && <LabelValueTable rows={jobDetails} />}
 
-        {activeTab === 1 && job.app && <LabelValueTable data={appDetails} />}
+        {activeTab === 1 && job.app && <LabelValueTable rows={appDetails} />}
 
-        {activeTab === 2 && <LabelValueTable data={contextDetails} />}
+        {activeTab === 2 && <LabelValueTable rows={contextDetails} />}
 
         {activeTab === 3 && job.state.status === 'error' && (
           <Box>
             {job.state.status === 'error' && (
               <Alert severity="error">
-                <Typography variant="subtitle2">Error Code: {job.state.error.code}</Typography>
+                <Typography variant="subtitle2">
+                  Error Code: {job.state.error.code}
+                </Typography>
                 <Typography variant="body2" sx={{ marginTop: 1 }}>
                   {job.state.error.message}
                 </Typography>
@@ -164,31 +186,34 @@ export const JobDetailsPanel: React.FC<JobDetailsPanelProps> = ({ job, onClose, 
         )}
 
         {/* Cancel Button for Running Jobs */}
-        {(job.state.status === 'run' || job.state.status === 'queue') && apiClient && (
-          <Box sx={{ marginTop: 2 }}>
-            <Button
-              variant="outlined"
-              color="error"
-              fullWidth
-              onClick={async () => {
-                try {
-                  await apiClient.cancelJob({
-                    job_id: job.job_id,
-                    timeout: 30000,
-                    admin: false,
-                  });
-                  alert('Job cancellation requested');
-                } catch (error) {
-                  const errorMessage =
-                    error instanceof Error ? error.message : 'Failed to cancel job';
-                  alert(`Error: ${errorMessage}`);
-                }
-              }}
-            >
-              Cancel Job
-            </Button>
-          </Box>
-        )}
+        {(job.state.status === 'run' || job.state.status === 'queue') &&
+          apiClient && (
+            <Box sx={{ marginTop: 2 }}>
+              <Button
+                variant="outlined"
+                color="error"
+                fullWidth
+                onClick={async () => {
+                  try {
+                    await apiClient.cancelJob({
+                      job_id: job.job_id,
+                      timeout: 30000,
+                      admin: false,
+                    });
+                    alert('Job cancellation requested');
+                  } catch (error) {
+                    const errorMessage =
+                      error instanceof Error
+                        ? error.message
+                        : 'Failed to cancel job';
+                    alert(`Error: ${errorMessage}`);
+                  }
+                }}
+              >
+                Cancel Job
+              </Button>
+            </Box>
+          )}
       </Box>
     </Paper>
   );
