@@ -1,0 +1,1 @@
+import{j as o,B as r,O as s}from"./index-jKwuRwNn.js";import{K as t}from"./ContextProvider-DVcfU6wB.js";const i=function(){return o.jsx(r,{children:o.jsx(t,{children:o.jsx(s,{})})})};export{i as component};

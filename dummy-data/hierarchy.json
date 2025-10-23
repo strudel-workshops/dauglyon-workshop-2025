@@ -1,0 +1,281 @@
+{
+  "id": "GO:0003674",
+  "name": "Molecular Function",
+  "description": "Elemental activities at the molecular level such as catalysis or binding",
+  "level": 0,
+  "count": 8942,
+  "children": [
+    {
+      "id": "GO:0003824",
+      "name": "Catalytic Activity",
+      "description": "Catalysis of a biochemical reaction at physiological temperatures",
+      "count": 2847,
+      "level": 1,
+      "children": [
+        {
+          "id": "GO:0016787",
+          "name": "Hydrolase Activity",
+          "description": "Catalysis of the hydrolysis of various bonds",
+          "count": 856,
+          "level": 2,
+          "children": [
+            {"id": "GO:0004553", "name": "Hydrolase Activity, Hydrolyzing O-Glycosyl Compounds", "description": "Catalysis of the hydrolysis of any O-glycosyl bond", "count": 142, "level": 3, "children": []},
+            {"id": "GO:0016788", "name": "Hydrolase Activity, Acting on Ester Bonds", "description": "Catalysis of the hydrolysis of any ester bond", "count": 178, "level": 3, "children": []},
+            {"id": "GO:0016791", "name": "Phosphatase Activity", "description": "Catalysis of the hydrolysis of phosphoric monoesters", "count": 136, "level": 3, "children": []},
+            {"id": "GO:0016798", "name": "Hydrolase Activity, Acting on Glycosyl Bonds", "description": "Catalysis of the hydrolysis of any glycosyl bond", "count": 95, "level": 3, "children": []},
+            {"id": "GO:0016799", "name": "Hydrolase Activity, Hydrolyzing N-Glycosyl Compounds", "description": "Catalysis of the hydrolysis of any N-glycosyl bond", "count": 67, "level": 3, "children": []},
+            {"id": "GO:0016810", "name": "Hydrolase Activity, Acting on Carbon-Nitrogen Bonds", "description": "Catalysis of the hydrolysis of any carbon-nitrogen bond", "count": 88, "level": 3, "children": []},
+            {"id": "GO:0016811", "name": "Hydrolase Activity, Acting on Carbon-Nitrogen (but not Peptide) Bonds", "description": "Catalysis of the hydrolysis of any carbon-nitrogen bond, other than peptide bonds", "count": 52, "level": 3, "children": []},
+            {"id": "GO:0016820", "name": "Hydrolase Activity, Acting on Acid Anhydrides", "description": "Catalysis of the hydrolysis of any acid anhydride", "count": 48, "level": 3, "children": []},
+            {"id": "GO:0016817", "name": "Hydrolase Activity, Acting on Acid Anhydrides, in Phosphorus-Containing Anhydrides", "description": "Catalysis of the hydrolysis of phosphorus-containing acid anhydrides", "count": 35, "level": 3, "children": []},
+            {"id": "GO:0016818", "name": "Hydrolase Activity, Acting on Acid Anhydrides, Involved in Phosphorylated Compounds Catalysis", "description": "Catalysis involving phosphorylated compounds", "count": 28, "level": 3, "children": []},
+            {"id": "GO:0016831", "name": "Carboxy-Lyase Activity", "description": "Catalysis of the nonhydrolytic addition or removal of a carboxyl group", "count": 41, "level": 3, "children": []},
+            {"id": "GO:0016840", "name": "Carbon-Nitrogen Lyase Activity", "description": "Catalysis of the cleavage of C-N bonds by other means", "count": 33, "level": 3, "children": []},
+            {"id": "GO:0016844", "name": "Strictosidine Synthase Activity", "description": "Catalysis of strictosidine formation", "count": 12, "level": 3, "children": []},
+            {"id": "GO:0016850", "name": "Carbon-Sulfur Lyase Activity", "description": "Catalysis of the cleavage of C-S bonds", "count": 19, "level": 3, "children": []},
+            {"id": "GO:0016851", "name": "Magnesium Chelatase Activity", "description": "Catalysis of chelation of magnesium", "count": 8, "level": 3, "children": []},
+            {"id": "GO:0016852", "name": "Sirohydrochlorin Cobaltochelatase Activity", "description": "Catalysis of cobalt chelation", "count": 6, "level": 3, "children": []},
+            {"id": "GO:0016860", "name": "Intramolecular Oxidoreductase Activity", "description": "Catalysis of intramolecular oxidoreduction", "count": 22, "level": 3, "children": []},
+            {"id": "GO:0016861", "name": "Intramolecular Oxidoreductase Activity, Interconverting Aldoses and Ketoses", "description": "Catalysis of aldose-ketose interconversion", "count": 15, "level": 3, "children": []},
+            {"id": "GO:0016863", "name": "Intramolecular Oxidoreductase Activity, Transposing S-S Bonds", "description": "Catalysis of S-S bond transposition", "count": 9, "level": 3, "children": []},
+            {"id": "GO:0016864", "name": "Intramolecular Transferase Activity, Phosphotransferases", "description": "Catalysis of intramolecular phosphate transfer", "count": 11, "level": 3, "children": []},
+            {"id": "GO:0016866", "name": "Intramolecular Transferase Activity", "description": "Catalysis of intramolecular group transfer", "count": 14, "level": 3, "children": []}
+          ]
+        },
+        {
+          "id": "GO:0016740",
+          "name": "Transferase Activity",
+          "description": "Catalysis of the transfer of a group from one compound to another",
+          "count": 612,
+          "level": 2,
+          "children": [
+            {"id": "GO:0016757", "name": "Glycosyltransferase Activity", "description": "Catalysis of the transfer of a glycosyl group", "count": 189, "level": 3, "children": []},
+            {"id": "GO:0016772", "name": "Transferase Activity, Transferring Phosphorus-Containing Groups", "description": "Catalysis of the transfer of a phosphorus-containing group", "count": 234, "level": 3, "children": []},
+            {"id": "GO:0016765", "name": "Transferase Activity, Transferring Alkyl or Aryl Groups", "description": "Catalysis of the transfer of an alkyl or aryl group", "count": 89, "level": 3, "children": []},
+            {"id": "GO:0016746", "name": "Acyltransferase Activity", "description": "Catalysis of the transfer of an acyl group", "count": 100, "level": 3, "children": []}
+          ]
+        },
+        {
+          "id": "GO:0016829",
+          "name": "Lyase Activity",
+          "description": "Catalysis of the cleavage of C-C, C-O, C-N and other bonds",
+          "count": 289,
+          "level": 2,
+          "children": [
+            {"id": "GO:0016830", "name": "Carbon-Carbon Lyase Activity", "description": "Catalysis of the cleavage of C-C bonds", "count": 167, "level": 3, "children": []},
+            {"id": "GO:0016835", "name": "Carbon-Oxygen Lyase Activity", "description": "Catalysis of the cleavage of C-O bonds", "count": 122, "level": 3, "children": []}
+          ]
+        },
+        {
+          "id": "GO:0016491",
+          "name": "Oxidoreductase Activity",
+          "description": "Catalysis of an oxidation-reduction reaction",
+          "count": 590,
+          "level": 2,
+          "children": [
+            {"id": "GO:0016614", "name": "Oxidoreductase Activity, Acting on CH-OH Group of Donors", "description": "Catalysis of an oxidation-reduction reaction in which a CH-OH group acts as donor", "count": 198, "level": 3, "children": []},
+            {"id": "GO:0016627", "name": "Oxidoreductase Activity, Acting on the CH-CH Group of Donors", "description": "Catalysis of an oxidation-reduction reaction in which a CH-CH group acts as donor", "count": 185, "level": 3, "children": []},
+            {"id": "GO:0016651", "name": "Oxidoreductase Activity, Acting on NAD(P)H", "description": "Catalysis of an oxidation-reduction reaction in which NADH or NADPH acts as donor", "count": 107, "level": 3, "children": []},
+            {"id": "GO:0016638", "name": "Oxidoreductase Activity, Acting on the CH-NH2 Group of Donors", "description": "Catalysis of an oxidation-reduction reaction in which a CH-NH2 group acts as donor", "count": 100, "level": 3, "children": []}
+          ]
+        },
+        {
+          "id": "GO:0016874",
+          "name": "Ligase Activity",
+          "description": "Catalysis of the joining of two molecules",
+          "count": 245,
+          "level": 2,
+          "children": [
+            {"id": "GO:0016875", "name": "Ligase Activity, Forming Carbon-Oxygen Bonds", "description": "Catalysis of the joining of two molecules via a carbon-oxygen bond", "count": 98, "level": 3, "children": []},
+            {"id": "GO:0016876", "name": "Ligase Activity, Forming Aminoacyl-tRNA and Related Compounds", "description": "Catalysis of the formation of aminoacyl-tRNA", "count": 67, "level": 3, "children": []},
+            {"id": "GO:0016879", "name": "Ligase Activity, Forming Carbon-Nitrogen Bonds", "description": "Catalysis of the joining of two molecules via a carbon-nitrogen bond", "count": 80, "level": 3, "children": []}
+          ]
+        },
+        {
+          "id": "GO:0016853",
+          "name": "Isomerase Activity",
+          "description": "Catalysis of the geometric or structural changes within one molecule",
+          "count": 255,
+          "level": 2,
+          "children": [
+            {"id": "GO:0016854", "name": "Racemase and Epimerase Activity", "description": "Catalysis of the inversion of asymmetric groups in a molecule", "count": 112, "level": 3, "children": []},
+            {"id": "GO:0016859", "name": "Cis-Trans Isomerase Activity", "description": "Catalysis of the interconversion of cis and trans isomers", "count": 78, "level": 3, "children": []},
+            {"id": "GO:0016860", "name": "Intramolecular Oxidoreductase Activity", "description": "Catalysis of an oxidation-reduction reaction in which the hydrogen donor and acceptor are the same molecule", "count": 65, "level": 3, "children": []}
+          ]
+        }
+      ]
+    },
+    {
+      "id": "GO:0005488",
+      "name": "Binding",
+      "description": "The selective interaction of a molecule with one or more specific sites",
+      "count": 3504,
+      "level": 1,
+      "children": [
+        {
+          "id": "GO:0043167",
+          "name": "Ion Binding",
+          "description": "Interacting selectively with ions",
+          "count": 1292,
+          "level": 2,
+          "children": [
+            {"id": "GO:0043169", "name": "Cation Binding", "description": "Interacting selectively with cations", "count": 924, "level": 3, "children": []},
+            {"id": "GO:0043168", "name": "Anion Binding", "description": "Interacting selectively with anions", "count": 268, "level": 3, "children": []},
+            {"id": "GO:0046872", "name": "Metal Ion Binding", "description": "Interacting selectively with metal ions", "count": 100, "level": 3, "children": []}
+          ]
+        },
+        {
+          "id": "GO:0097159",
+          "name": "Organic Cyclic Compound Binding",
+          "description": "Interacting selectively with an organic cyclic compound",
+          "count": 867,
+          "level": 2,
+          "children": [
+            {"id": "GO:0003676", "name": "Nucleic Acid Binding", "description": "Interacting selectively with any nucleic acid", "count": 442, "level": 3, "children": []},
+            {"id": "GO:1901363", "name": "Heterocyclic Compound Binding", "description": "Interacting selectively with heterocyclic compound", "count": 325, "level": 3, "children": []},
+            {"id": "GO:0035639", "name": "Purine Ribonucleoside Triphosphate Binding", "description": "Interacting selectively with purine ribonucleoside triphosphate", "count": 100, "level": 3, "children": []}
+          ]
+        },
+        {
+          "id": "GO:0005515",
+          "name": "Protein Binding",
+          "description": "Interacting selectively with any protein or protein complex",
+          "count": 945,
+          "level": 2,
+          "children": [
+            {"id": "GO:0019904", "name": "Protein Domain Specific Binding", "description": "Interacting selectively with a specific domain of a protein", "count": 334, "level": 3, "children": []},
+            {"id": "GO:0042802", "name": "Identical Protein Binding", "description": "Interacting selectively with an identical protein", "count": 511, "level": 3, "children": []},
+            {"id": "GO:0046982", "name": "Protein Heterodimerization Activity", "description": "Interacting selectively with a nonidentical protein to form a heterodimer", "count": 100, "level": 3, "children": []}
+          ]
+        },
+        {
+          "id": "GO:0097367",
+          "name": "Carbohydrate Derivative Binding",
+          "description": "Interacting selectively with a carbohydrate derivative",
+          "count": 400,
+          "level": 2,
+          "children": [
+            {"id": "GO:0030246", "name": "Carbohydrate Binding", "description": "Interacting selectively with any carbohydrate", "count": 178, "level": 3, "children": []},
+            {"id": "GO:0043168", "name": "Anion Binding", "description": "Interacting selectively with anions", "count": 122, "level": 3, "children": []},
+            {"id": "GO:0000166", "name": "Nucleotide Binding", "description": "Interacting selectively with a nucleotide", "count": 100, "level": 3, "children": []}
+          ]
+        }
+      ]
+    },
+    {
+      "id": "GO:0038023",
+      "name": "Signaling Receptor Activity",
+      "description": "Receiving a signal and transmitting it in the cell",
+      "count": 978,
+      "level": 1,
+      "children": [
+        {
+          "id": "GO:0004888",
+          "name": "Transmembrane Signaling Receptor Activity",
+          "description": "A receptor located in a membrane capable of receiving and transmitting signals",
+          "count": 723,
+          "level": 2,
+          "children": [
+            {"id": "GO:0004930", "name": "G Protein-Coupled Receptor Activity", "description": "Combining with an extracellular signal and transmitting via G protein", "count": 412, "level": 3, "children": []},
+            {"id": "GO:0004714", "name": "Transmembrane Receptor Protein Tyrosine Kinase Activity", "description": "Combining with a signal and transmitting via tyrosine phosphorylation", "count": 211, "level": 3, "children": []},
+            {"id": "GO:0004715", "name": "Non-membrane Spanning Protein Tyrosine Kinase Activity", "description": "Catalysis of protein tyrosine phosphorylation without spanning membrane", "count": 100, "level": 3, "children": []}
+          ]
+        },
+        {
+          "id": "GO:0004872",
+          "name": "Signaling Receptor Activity (Non-Transmembrane)",
+          "description": "Receiving a signal without being embedded in a membrane",
+          "count": 255,
+          "level": 2,
+          "children": [
+            {"id": "GO:0008528", "name": "G Protein-Coupled Peptide Receptor Activity", "description": "Combining with a peptide and transmitting the signal via G protein", "count": 123, "level": 3, "children": []},
+            {"id": "GO:0004896", "name": "Cytokine Receptor Activity", "description": "Combining with a cytokine and transmitting the signal", "count": 132, "level": 3, "children": []}
+          ]
+        }
+      ]
+    },
+    {
+      "id": "GO:0140110",
+      "name": "Transcription Regulator Activity",
+      "description": "A protein that modulates transcription",
+      "count": 834,
+      "level": 1,
+      "children": [
+        {
+          "id": "GO:0000981",
+          "name": "DNA-Binding Transcription Factor Activity",
+          "description": "A protein that binds DNA to modulate transcription",
+          "count": 598,
+          "level": 2,
+          "children": [
+            {"id": "GO:0001216", "name": "DNA-Binding Transcription Activator Activity", "description": "A protein that binds DNA to activate transcription", "count": 287, "level": 3, "children": []},
+            {"id": "GO:0001217", "name": "DNA-Binding Transcription Repressor Activity", "description": "A protein that binds DNA to repress transcription", "count": 211, "level": 3, "children": []},
+            {"id": "GO:0000982", "name": "RNA Polymerase II Core Promoter Proximal Region Sequence-Specific DNA Binding Transcription Factor Activity", "description": "Interacting selectively with a specific DNA sequence in the promoter", "count": 100, "level": 3, "children": []}
+          ]
+        },
+        {
+          "id": "GO:0003712",
+          "name": "Transcription Coregulator Activity",
+          "description": "A protein that binds to a transcription factor to modulate its activity",
+          "count": 236,
+          "level": 2,
+          "children": [
+            {"id": "GO:0003713", "name": "Transcription Coactivator Activity", "description": "A protein that activates transcription in concert with a transcription factor", "count": 134, "level": 3, "children": []},
+            {"id": "GO:0003714", "name": "Transcription Corepressor Activity", "description": "A protein that represses transcription in concert with a transcription factor", "count": 102, "level": 3, "children": []}
+          ]
+        }
+      ]
+    },
+    {
+      "id": "GO:0005198",
+      "name": "Structural Molecule Activity",
+      "description": "The action of a molecule that contributes to the structural integrity of a complex or assembly",
+      "count": 779,
+      "level": 1,
+      "children": [
+        {
+          "id": "GO:0005200",
+          "name": "Structural Constituent of Cytoskeleton",
+          "description": "The action of a molecule that contributes to the structural integrity of a cytoskeletal structure",
+          "count": 312,
+          "level": 2,
+          "children": [
+            {"id": "GO:0003779", "name": "Actin Binding", "description": "Interacting selectively with actin", "count": 145, "level": 3, "children": []},
+            {"id": "GO:0008017", "name": "Microtubule Binding", "description": "Interacting selectively with microtubules", "count": 167, "level": 3, "children": []}
+          ]
+        },
+        {
+          "id": "GO:0005201",
+          "name": "Extracellular Matrix Structural Constituent",
+          "description": "The action of a molecule that contributes to the structural integrity of the extracellular matrix",
+          "count": 234,
+          "level": 2,
+          "children": [
+            {"id": "GO:0005214", "name": "Structural Constituent of Chitin-Based Cuticle", "description": "The action of a molecule that contributes to the structural integrity of chitin-based cuticle", "count": 89, "level": 3, "children": []},
+            {"id": "GO:0005212", "name": "Structural Constituent of Eye Lens", "description": "The action of a molecule that contributes to the structural integrity of the lens", "count": 145, "level": 3, "children": []}
+          ]
+        },
+        {
+          "id": "GO:0005199",
+          "name": "Structural Constituent of Cell Wall",
+          "description": "The action of a molecule that contributes to the structural integrity of a cell wall",
+          "count": 133,
+          "level": 2,
+          "children": [
+            {"id": "GO:0005215", "name": "Transporter Activity", "description": "Enables the directed movement of substances into, out of or within a cell", "count": 133, "level": 3, "children": []}
+          ]
+        },
+        {
+          "id": "GO:0019012",
+          "name": "Virion Component",
+          "description": "A structural molecule that is a component of a virion",
+          "count": 100,
+          "level": 2,
+          "children": [
+            {"id": "GO:0019013", "name": "Viral Nucleocapsid", "description": "The protein-nucleic acid complex that constitutes the viral genome", "count": 100, "level": 3, "children": []}
+          ]
+        }
+      ]
+    }
+  ]
+}
