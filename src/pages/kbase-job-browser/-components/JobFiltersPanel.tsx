@@ -21,10 +21,19 @@ interface JobFiltersPanelProps {
   apiClient: KBaseJobsAPIClient | null;
 }
 
-export const JobFiltersPanel: React.FC<JobFiltersPanelProps> = ({ onClose }) => {
+export const JobFiltersPanel: React.FC<JobFiltersPanelProps> = ({
+  onClose,
+}) => {
   const { state, dispatch } = useKBaseJobBrowser();
 
-  const statusOptions: JobStatus[] = ['create', 'queue', 'run', 'complete', 'error', 'terminate'];
+  const statusOptions: JobStatus[] = [
+    'create',
+    'queue',
+    'run',
+    'complete',
+    'error',
+    'terminate',
+  ];
 
   const handleStatusChange = (status: JobStatus, checked: boolean) => {
     const currentStatuses = state.filter.status || [];
@@ -32,23 +41,24 @@ export const JobFiltersPanel: React.FC<JobFiltersPanelProps> = ({ onClose }) => 
       ? [...currentStatuses, status]
       : currentStatuses.filter((s) => s !== status);
 
-    dispatch(setFilter({ status: newStatuses.length > 0 ? newStatuses : undefined }));
+    dispatch(
+      setFilter({ status: newStatuses.length > 0 ? newStatuses : undefined })
+    );
   };
 
   const handleTimeRangeChange = (days: number) => {
     dispatch(setTimeRangeDays(days));
   };
 
-  const handleSearchChange = (value: string) => {
-    // This would require updating the context to support search terms
-    // For now, we'll skip this feature
-  };
-
   return (
     <Paper sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
       {/* Header */}
       <Box sx={{ padding: 2, borderBottom: 1, borderColor: 'divider' }}>
-        <Stack direction="row" justifyContent="space-between" alignItems="center">
+        <Stack
+          direction="row"
+          justifyContent="space-between"
+          alignItems="center"
+        >
           <Typography variant="h6">Filters</Typography>
           <IconButton size="small" onClick={onClose}>
             <CloseIcon />
@@ -91,7 +101,9 @@ export const JobFiltersPanel: React.FC<JobFiltersPanelProps> = ({ onClose }) => 
                   control={
                     <Checkbox
                       checked={state.filter.status?.includes(status) || false}
-                      onChange={(e) => handleStatusChange(status, e.target.checked)}
+                      onChange={(e) =>
+                        handleStatusChange(status, e.target.checked)
+                      }
                       size="small"
                     />
                   }
@@ -150,7 +162,9 @@ export const JobFiltersPanel: React.FC<JobFiltersPanelProps> = ({ onClose }) => 
               fullWidth
               onChange={(e) => {
                 const value = e.target.value.trim();
-                dispatch(setFilter({ app_module: value ? [value] : undefined }));
+                dispatch(
+                  setFilter({ app_module: value ? [value] : undefined })
+                );
               }}
             />
             <Typography variant="caption" color="text.secondary">
@@ -169,7 +183,9 @@ export const JobFiltersPanel: React.FC<JobFiltersPanelProps> = ({ onClose }) => 
               fullWidth
               onChange={(e) => {
                 const value = e.target.value.trim();
-                dispatch(setFilter({ client_group: value ? [value] : undefined }));
+                dispatch(
+                  setFilter({ client_group: value ? [value] : undefined })
+                );
               }}
             />
             <Typography variant="caption" color="text.secondary">
@@ -183,8 +199,9 @@ export const JobFiltersPanel: React.FC<JobFiltersPanelProps> = ({ onClose }) => 
       <Box sx={{ padding: 2, borderTop: 1, borderColor: 'divider' }}>
         <Typography variant="caption" color="text.secondary">
           Active Filters:{' '}
-          {Object.keys(state.filter).filter((key) => state.filter[key as keyof typeof state.filter])
-            .length || 'None'}
+          {Object.keys(state.filter).filter(
+            (key) => state.filter[key as keyof typeof state.filter]
+          ).length || 'None'}
         </Typography>
       </Box>
     </Paper>

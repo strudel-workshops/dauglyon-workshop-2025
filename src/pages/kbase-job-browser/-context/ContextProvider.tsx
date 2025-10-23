@@ -21,7 +21,11 @@ interface KBaseJobBrowserProviderProps {
 }
 
 const KBaseJobBrowserContext = React.createContext<
-  { state: KBaseJobBrowserState; dispatch: React.Dispatch<KBaseJobBrowserAction> } | undefined
+  | {
+      state: KBaseJobBrowserState;
+      dispatch: React.Dispatch<KBaseJobBrowserAction>;
+    }
+  | undefined
 >(undefined);
 
 const initialState: KBaseJobBrowserState = {
@@ -33,14 +37,14 @@ const initialState: KBaseJobBrowserState = {
   filter: {},
   page: 0,
   pageSize: 20,
-  timeRangeDays: 7,
+  timeRangeDays: 1825, // ~5 years to show older jobs
   totalCount: 0,
   foundCount: 0,
 };
 
 function kbaseJobBrowserReducer(
   state: KBaseJobBrowserState,
-  action: KBaseJobBrowserAction,
+  action: KBaseJobBrowserAction
 ): KBaseJobBrowserState {
   switch (action.type) {
     case KBaseJobBrowserActionType.SET_TOKEN:
@@ -54,7 +58,11 @@ function kbaseJobBrowserReducer(
     case KBaseJobBrowserActionType.SET_SELECTED_JOB:
       return { ...state, selectedJob: action.payload };
     case KBaseJobBrowserActionType.SET_FILTER:
-      return { ...state, filter: { ...state.filter, ...action.payload }, page: 0 };
+      return {
+        ...state,
+        filter: { ...state.filter, ...action.payload },
+        page: 0,
+      };
     case KBaseJobBrowserActionType.SET_PAGE:
       return { ...state, page: action.payload };
     case KBaseJobBrowserActionType.SET_PAGE_SIZE:
@@ -70,7 +78,9 @@ function kbaseJobBrowserReducer(
   }
 }
 
-export const KBaseJobBrowserProvider: React.FC<KBaseJobBrowserProviderProps> = ({ children }) => {
+export const KBaseJobBrowserProvider: React.FC<
+  KBaseJobBrowserProviderProps
+> = ({ children }) => {
   const [state, dispatch] = useReducer(kbaseJobBrowserReducer, initialState);
 
   return (
@@ -83,7 +93,9 @@ export const KBaseJobBrowserProvider: React.FC<KBaseJobBrowserProviderProps> = (
 export const useKBaseJobBrowser = () => {
   const context = useContext(KBaseJobBrowserContext);
   if (context === undefined) {
-    throw new Error('useKBaseJobBrowser must be used within KBaseJobBrowserProvider');
+    throw new Error(
+      'useKBaseJobBrowser must be used within KBaseJobBrowserProvider'
+    );
   }
   return context;
 };

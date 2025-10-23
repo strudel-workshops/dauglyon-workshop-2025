@@ -1,4 +1,4 @@
-import { JobInfo, JobStatus, JobFilter } from '../-components/kbase-jobs-api';
+import { JobInfo, JobFilter } from '../-components/kbase-jobs-api';
 
 export enum KBaseJobBrowserActionType {
   SET_TOKEN = 'SET_TOKEN',
@@ -19,7 +19,7 @@ export interface KBaseJobBrowserAction {
   payload?: any;
 }
 
-export const setToken = (token: string): KBaseJobBrowserAction => ({
+export const setToken = (token: string | null): KBaseJobBrowserAction => ({
   type: KBaseJobBrowserActionType.SET_TOKEN,
   payload: token,
 });
@@ -44,7 +44,9 @@ export const setSelectedJob = (job: JobInfo | null): KBaseJobBrowserAction => ({
   payload: job,
 });
 
-export const setFilter = (filter: Partial<JobFilter>): KBaseJobBrowserAction => ({
+export const setFilter = (
+  filter: Partial<JobFilter>
+): KBaseJobBrowserAction => ({
   type: KBaseJobBrowserActionType.SET_FILTER,
   payload: filter,
 });

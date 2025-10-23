@@ -14,6 +14,18 @@ export default defineConfig(({ mode }) => {
       port: 5175,
       strictPort: true,
       allowedHosts: ['.strudel.2i2c.cloud'],
+      proxy: {
+        '/services': {
+          target: 'https://ci.kbase.us',
+          changeOrigin: true,
+          secure: true,
+        },
+        '/dynserv': {
+          target: 'https://ci.kbase.us',
+          changeOrigin: true,
+          secure: true,
+        },
+      },
     },
   };
 });

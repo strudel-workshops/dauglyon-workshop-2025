@@ -11,14 +11,13 @@ import {
 } from '@mui/material';
 import { GridColDef } from '@mui/x-data-grid';
 import { createFileRoute } from '@tanstack/react-router';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { PageHeader } from '../../../components/PageHeader';
 import { SciDataGrid } from '../../../components/SciDataGrid';
 import {
   formatTimestamp,
   getLastNDaysTimeSpan,
   getStatusColor,
-  JobInfo,
   KBaseJobsAPIClient,
 } from '../-components/kbase-jobs-api';
 import { JobDetailsPanel } from '../-components/JobDetailsPanel';
@@ -38,30 +37,35 @@ export const Route = createFileRoute('/kbase-job-browser/_layout/')({
   component: KBaseJobBrowserPage,
 });
 
-// CUSTOMIZE: KBase API endpoint URL
-const KBASE_API_URL = 'https://ci.kbase.us/services/job_browser_bff';
+// CUSTOMIZE: KBase ServiceWizard URL (used for dynamic service discovery)
+const SERVICE_WIZARD_URL = '/services/service_wizard';
 
 function KBaseJobBrowserPage() {
   const { state, dispatch } = useKBaseJobBrowser();
   const [tokenInput, setTokenInput] = useState('');
   const [showFiltersPanel, setShowFiltersPanel] = useState(true);
   const [apiClient, setApiClient] = useState<KBaseJobsAPIClient | null>(null);
+  const fetchingRef = useRef(false);
 
   // Initialize API client when token is set
   useEffect(() => {
     if (state.token) {
-      const client = new KBaseJobsAPIClient(KBASE_API_URL, state.token);
+      const client = new KBaseJobsAPIClient(SERVICE_WIZARD_URL, state.token);
       setApiClient(client);
     } else {
       setApiClient(null);
     }
   }, [state.token]);
 
+  // Create a stable filter key to prevent unnecessary re-fetches
+  const filterKey = useMemo(() => JSON.stringify(state.filter), [state.filter]);
+
   // Fetch jobs when parameters change
   useEffect(() => {
-    if (!apiClient || !state.token) return;
+    if (!apiClient || !state.token || fetchingRef.current) return;
 
     const fetchJobs = async () => {
+      fetchingRef.current = true;
       dispatch(setLoading(true));
       dispatch(setError(null));
 
@@ -80,16 +84,25 @@ function KBaseJobBrowserPage() {
         dispatch(setFoundCount(result.found_count));
         dispatch(setTotalCount(result.total_count));
       } catch (error) {
-        const errorMessage = error instanceof Error ? error.message : 'Failed to fetch jobs';
+        const errorMessage =
+          error instanceof Error ? error.message : 'Failed to fetch jobs';
         dispatch(setError(errorMessage));
         dispatch(setJobs([]));
       } finally {
         dispatch(setLoading(false));
+        fetchingRef.current = false;
       }
     };
 
     fetchJobs();
-  }, [apiClient, state.token, state.page, state.pageSize, state.filter, state.timeRangeDays]);
+  }, [
+    apiClient,
+    state.token,
+    state.page,
+    state.pageSize,
+    filterKey,
+    state.timeRangeDays,
+  ]);
 
   const handleTokenSubmit = () => {
     if (tokenInput.trim()) {
@@ -115,7 +128,10 @@ function KBaseJobBrowserPage() {
       headerName: 'Job ID',
       width: 180,
       renderCell: (params) => (
-        <Typography variant="body2" sx={{ fontFamily: 'monospace', fontSize: '0.85rem' }}>
+        <Typography
+          variant="body2"
+          sx={{ fontFamily: 'monospace', fontSize: '0.85rem' }}
+        >
           {params.value}
         </Typography>
       ),
@@ -193,18 +209,28 @@ function KBaseJobBrowserPage() {
                 helperText="Enter your KBase authentication token to access jobs"
               />
               {!state.token ? (
-                <Button variant="contained" onClick={handleTokenSubmit} disabled={!tokenInput.trim()}>
+                <Button
+                  variant="contained"
+                  onClick={handleTokenSubmit}
+                  disabled={!tokenInput.trim()}
+                >
                   Connect
                 </Button>
               ) : (
-                <Button variant="outlined" onClick={handleClearToken} color="error">
+                <Button
+                  variant="outlined"
+                  onClick={handleClearToken}
+                  color="error"
+                >
                   Disconnect
                 </Button>
               )}
             </Stack>
             {state.token && (
               <Alert severity="success">
-                Connected to KBase API. Showing jobs from the last {state.timeRangeDays} days.
+                Connected to KBase API. Showing jobs from the last{' '}
+                {state.timeRangeDays} days (~
+                {Math.round(state.timeRangeDays / 365)} years).
               </Alert>
             )}
           </Stack>
@@ -231,48 +257,81 @@ function KBaseJobBrowserPage() {
             )}
 
             {/* Job List */}
-            <Paper elevation={0} sx={{ flex: 1, minWidth: 0 }}>
+            <Paper
+              elevation={0}
+              sx={{
+                flex: 1,
+                minWidth: 0,
+                display: 'flex',
+                flexDirection: 'column',
+              }}
+            >
               {state.loading && <LinearProgress />}
-              <Box sx={{ padding: 2 }}>
-                <Stack direction="row" justifyContent="space-between" alignItems="center" mb={1}>
+              <Box
+                sx={{
+                  padding: 2,
+                  display: 'flex',
+                  flexDirection: 'column',
+                  flex: 1,
+                }}
+              >
+                <Stack
+                  direction="row"
+                  justifyContent="space-between"
+                  alignItems="center"
+                  mb={1}
+                >
                   <Typography variant="body2" color="text.secondary">
                     Showing {state.jobs.length} of {state.foundCount} jobs (
                     {state.totalCount} total in time range)
                   </Typography>
                   {!showFiltersPanel && (
-                    <Button size="small" onClick={() => setShowFiltersPanel(true)}>
+                    <Button
+                      size="small"
+                      onClick={() => setShowFiltersPanel(true)}
+                    >
                       Show Filters
                     </Button>
                   )}
                 </Stack>
-                <SciDataGrid
-                  rows={state.jobs}
-                  columns={columns}
-                  getRowId={(row) => row.job_id}
-                  loading={state.loading}
-                  pageSizeOptions={[10, 20, 50, 100]}
-                  paginationModel={{
-                    page: state.page,
-                    pageSize: state.pageSize,
-                  }}
-                  onPaginationModelChange={(model) => {
-                    dispatch(setLoading(false));
-                    if (model.page !== state.page) {
-                      dispatch({ type: 'SET_PAGE' as any, payload: model.page });
-                    }
-                    if (model.pageSize !== state.pageSize) {
-                      dispatch({ type: 'SET_PAGE_SIZE' as any, payload: model.pageSize });
-                    }
-                  }}
-                  rowCount={state.foundCount}
-                  paginationMode="server"
-                  onRowClick={handleRowClick}
-                  sx={{
-                    '& .MuiDataGrid-row': {
-                      cursor: 'pointer',
-                    },
-                  }}
-                />
+                <Box sx={{ flex: 1 }}>
+                  <SciDataGrid
+                    rows={state.jobs}
+                    columns={columns}
+                    getRowId={(row) => row.job_id}
+                    loading={state.loading}
+                    pageSizeOptions={[10, 20, 50, 100]}
+                    paginationModel={{
+                      page: state.page,
+                      pageSize: state.pageSize,
+                    }}
+                    onPaginationModelChange={(model) => {
+                      dispatch(setLoading(false));
+                      if (model.page !== state.page) {
+                        dispatch({
+                          type: 'SET_PAGE' as any,
+                          payload: model.page,
+                        });
+                      }
+                      if (model.pageSize !== state.pageSize) {
+                        dispatch({
+                          type: 'SET_PAGE_SIZE' as any,
+                          payload: model.pageSize,
+                        });
+                      }
+                    }}
+                    rowCount={state.foundCount}
+                    paginationMode="server"
+                    onRowClick={handleRowClick}
+                    rowHeight={52}
+                    sx={{
+                      height: '100%',
+                      '& .MuiDataGrid-row': {
+                        cursor: 'pointer',
+                      },
+                    }}
+                  />
+                </Box>
               </Box>
             </Paper>
 

@@ -2,9 +2,16 @@
 // Based on JobBrowserBFF service
 
 import { JSONRPCClient } from './jsonrpc20';
+import { ServiceWizardClient } from './service-wizard';
 
 // Job Status Types
-export type JobStatus = 'create' | 'queue' | 'run' | 'complete' | 'error' | 'terminate';
+export type JobStatus =
+  | 'create'
+  | 'queue'
+  | 'run'
+  | 'complete'
+  | 'error'
+  | 'terminate';
 
 // Job State Interfaces
 export interface JobStateBase {
@@ -222,46 +229,89 @@ export interface IsAdminResult {
 
 // KBase Jobs API Client
 export class KBaseJobsAPIClient {
-  private client: JSONRPCClient;
+  private client: JSONRPCClient | null = null;
 
-  constructor(url: string, token?: string) {
-    this.client = new JSONRPCClient({
-      url,
-      token,
-      timeout: 30000,
-    });
+  private serviceWizard: ServiceWizardClient;
+
+  private serviceWizardURL: string;
+
+  private token?: string;
+
+  private cachedServiceURL?: string;
+
+  constructor(serviceWizardURL: string, token?: string) {
+    this.serviceWizardURL = serviceWizardURL;
+    this.token = token;
+    this.serviceWizard = new ServiceWizardClient(serviceWizardURL, token);
+  }
+
+  private async ensureClient(): Promise<JSONRPCClient> {
+    if (!this.client || !this.cachedServiceURL) {
+      const serviceInfo = await this.serviceWizard.getServiceStatus({
+        module_name: 'JobBrowserBFF',
+        version: null,
+      });
+      // Convert absolute URL to relative path for proxy
+      // e.g., https://ci.kbase.us:443/dynserv/xxx.JobBrowserBFF -> /dynserv/xxx.JobBrowserBFF
+      const urlObj = new URL(serviceInfo.url);
+      this.cachedServiceURL = urlObj.pathname;
+
+      this.client = new JSONRPCClient({
+        url: this.cachedServiceURL,
+        token: this.token,
+        timeout: 30000,
+      });
+    }
+    return this.client;
   }
 
   setToken(token: string) {
-    this.client.setToken(token);
+    this.token = token;
+    this.serviceWizard.setToken(token);
+    if (this.client) {
+      this.client.setToken(token);
+    }
   }
 
   clearToken() {
-    this.client.clearToken();
+    this.token = undefined;
+    this.serviceWizard.clearToken();
+    if (this.client) {
+      this.client.clearToken();
+    }
   }
 
   async queryJobs(params: QueryJobsParams): Promise<QueryJobsResult> {
-    return this.client.call<QueryJobsResult>('JobBrowserBFF.query_jobs', params);
+    const client = await this.ensureClient();
+    return client.call<QueryJobsResult>('JobBrowserBFF.query_jobs', params);
   }
 
   async getJobs(params: GetJobsParams): Promise<GetJobsResult> {
-    return this.client.call<GetJobsResult>('JobBrowserBFF.get_jobs', params);
+    const client = await this.ensureClient();
+    return client.call<GetJobsResult>('JobBrowserBFF.get_jobs', params);
   }
 
   async getJobLog(params: GetJobLogParams): Promise<GetJobLogResult> {
-    return this.client.call<GetJobLogResult>('JobBrowserBFF.get_job_log', params);
+    const client = await this.ensureClient();
+    return client.call<GetJobLogResult>('JobBrowserBFF.get_job_log', params);
   }
 
   async cancelJob(params: CancelJobParams): Promise<CancelJobResult> {
-    return this.client.call<CancelJobResult>('JobBrowserBFF.cancel_job', params);
+    const client = await this.ensureClient();
+    return client.call<CancelJobResult>('JobBrowserBFF.cancel_job', params);
   }
 
   async getClientGroups(): Promise<GetClientGroupsResult> {
-    return this.client.call<GetClientGroupsResult>('JobBrowserBFF.get_client_groups', {});
+    const client = await this.ensureClient();
+    return client.call<GetClientGroupsResult>(
+      'JobBrowserBFF.get_client_groups',
+      {}
+    );
   }
 
   async isAdmin(): Promise<IsAdminResult> {
-    return this.client.call<IsAdminResult>('JobBrowserBFF.is_admin', {});
+    const client = await this.ensureClient();
+    return client.call<IsAdminResult>('JobBrowserBFF.is_admin', {});
   }
 }
 
